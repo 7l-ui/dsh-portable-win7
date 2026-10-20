@@ -20,12 +20,14 @@ jobs:
           node-version: '24'
       - name: Check key modules
         run: npm run check:syntax
-      - name: Test portable templates, bridge and manifest
-        run: npm test
       - name: Test publication audit
         run: npm run audit:self-test
       - name: Audit source before installing external dependencies
         run: npm run audit
+      - name: Install locked bridge test dependencies
+        run: npm ci --prefix bridge-source --ignore-scripts --no-audit --no-fund
+      - name: Test portable templates, bridge and manifest
+        run: npm test
       - name: Install locked compatibility test dependencies
         shell: pwsh
         run: |

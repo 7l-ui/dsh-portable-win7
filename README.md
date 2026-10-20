@@ -31,12 +31,17 @@
 
 ## 开发检查
 
+在尚未安装依赖、没有构建输出的纯源码快照上先运行发布审计，再安装锁定的桥接依赖并测试：
+
 ```powershell
-npm test
 npm run check:syntax
 npm run audit:self-test
 npm run audit
+npm ci --prefix bridge-source --ignore-scripts --no-audit --no-fund
+npm test
 ```
+
+审计会拒绝 `node_modules` 等本地输入和生成目录；后续复查发布内容时应使用新的纯源码快照。桥接测试使用仓库内 `bridge-source` 和模板源码，不需要相邻工作区中的项目。
 
 兼容层测试另需按构建说明安装 `win7/tools` 的锁定依赖，并把 `DSH_WIN7_ZSTD_PATH` 指向固定版 `zstd.exe`，再执行 `npm run test:compat`。GitHub Actions 在现代 Windows 和 Node 24 上运行源码检查，**不代表 Win7 虚拟机验收**。
 

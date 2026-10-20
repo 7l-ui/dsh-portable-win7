@@ -1,6 +1,6 @@
 {
   "name": "dsh-portable-win7",
-  "version": "0.1.0-experimental",
+  "version": "0.1.1-experimental",
   "private": true,
   "description": "Source-only experimental Windows 7 SP1 x64 portability layer and build tooling for DeepSeek Harness",
   "type": "module",

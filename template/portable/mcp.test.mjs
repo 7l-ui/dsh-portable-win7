@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
-import { copyFile, link, mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises';
+import { copyFile, link, mkdir, mkdtemp, readFile, realpath, rm, symlink, writeFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -12,7 +12,7 @@ import { bootstrapPortableMcp, initializePortableHost, portableMcpConfig, readPo
 import { connectPortable } from '../bridge/portable-connect.mjs';
 
 async function fixture(t) {
-  const parent = await mkdtemp(path.join(tmpdir(), 'dsh-portable-mcp-test-'));
+  const parent = await realpath(await mkdtemp(path.join(tmpdir(), 'dsh-portable-mcp-test-')));
   const root = path.join(parent, '便携包 with spaces');
   await Promise.all(['portable', 'runtime/node', 'bridge', 'logs', 'data/runtime'].map(part => mkdir(path.join(root, part), { recursive: true })));
   t.after(() => rm(parent, { recursive: true, force: true }));
@@ -214,13 +214,14 @@ test('initialize and tools/list respond during slow DSH startup; tools wait and 
   try { await link(process.execPath, portableMcpConfig(root).command); }
   catch { await copyFile(process.execPath, portableMcpConfig(root).command); }
   await copyFile(fileURLToPath(new URL('./mcp.mjs', import.meta.url)), path.join(root, 'portable', 'mcp.mjs'));
-  for (const name of ['connection.mjs', 'core.mjs']) {
-    await copyFile(fileURLToPath(new URL(`../../../dsh-codex-bridge/${name}`, import.meta.url)), path.join(root, 'bridge', name));
-  }
-  for (const name of ['server.mjs', 'portable-connect.mjs']) {
+  await copyFile(fileURLToPath(new URL('../../bridge-source/connection.mjs', import.meta.url)), path.join(root, 'bridge', 'connection.mjs'));
+  for (const name of ['core.mjs', 'server.mjs', 'portable-connect.mjs']) {
     await copyFile(fileURLToPath(new URL(`../bridge/${name}`, import.meta.url)), path.join(root, 'bridge', name));
   }
-  await symlink(fileURLToPath(new URL('../../../dsh-codex-bridge/node_modules', import.meta.url)), path.join(root, 'bridge', 'node_modules'), process.platform === 'win32' ? 'junction' : 'dir');
+  const bridgeDependencies = process.env.DSH_BRIDGE_DEPENDENCIES
+    ? path.resolve(process.env.DSH_BRIDGE_DEPENDENCIES)
+    : fileURLToPath(new URL('../../bridge-source/node_modules', import.meta.url));
+  await symlink(bridgeDependencies, path.join(root, 'bridge', 'node_modules'), process.platform === 'win32' ? 'junction' : 'dir');
   await writeFile(path.join(root, 'portable', 'launcher.mjs'), `
     import { existsSync } from 'node:fs';
     import { join } from 'node:path';
