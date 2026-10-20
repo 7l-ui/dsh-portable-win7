@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "scope": "Source-only; third-party archives and legally obtained Python packages must be supplied separately.",
+  "paths": {
+    "base": "artifacts/DSH-Portable-Windows-x64",
+    "research": "downloads/win7-research",
+    "tools": "win7/tools/node_modules",
+    "gcc": "gcc.exe",
+    "sqliteAddon": "downloads/win7-research/sqlite/build/Release/better_sqlite3.node",
+    "pythonSitePackages": "artifacts/DSH-Portable-Windows-x64/runtime/primary-runtime/dependencies/python/Lib/site-packages"
+  },
+  "downloads": [
+    {
+      "id": "node",
+      "version": "20.19.2",
+      "file": "node/node-v20.19.2-win-x64.zip",
+      "url": "https://raw.githubusercontent.com/vladimir-andreevich/node.js-windows-7/181c7bf8d5d1173cc7f4649a45da35ceda5aeff3/v20/node-v20.19.2-win-x64.zip",
+      "bytes": 30604941,
+      "sha256": "bf2ddbd115c3775dc997cef1776f73695bae59b266b6f3bf9b9ebce22a06a132",
+      "hashEvidence": "locally-computed; matches fixed-commit Git blob, not official Node signature"
+    },
+    {
+      "id": "pythonvista",
+      "file": "deps/python-3.12.15-embed-amd64.zip",
+      "filename": "python-3.12.15-embed-amd64.zip",
+      "url": "https://github.com/adang1345/PythonVista/releases/download/v3.12.15/python-3.12.15-embed-amd64.zip",
+      "bytes": 10937497,
+      "sha256": "ae6dff864d43a86ada902ca589506d4672dd9c7d63dbcf8403dee4085a066804",
+      "hashEvidence": "github-asset-digest"
+    },
+    {
+      "id": "git",
+      "file": "deps/PortableGit-2.46.2-64-bit.7z.exe",
+      "filename": "PortableGit-2.46.2-64-bit.7z.exe",
+      "url": "https://github.com/git-for-windows/git/releases/download/v2.46.2.windows.1/PortableGit-2.46.2-64-bit.7z.exe",
+      "bytes": 61723136,
+      "sha256": "58ae5c1a27d3f9ce8518c1a187860973cfa4dd604f518350e84f7baf418fc9fa",
+      "hashEvidence": "publisher-release-hash"
+    },
+    {
+      "id": "powershell",
+      "file": "deps/PowerShell-7.2.24-win-x64.zip",
+      "filename": "PowerShell-7.2.24-win-x64.zip",
+      "url": "https://github.com/PowerShell/PowerShell/releases/download/v7.2.24/PowerShell-7.2.24-win-x64.zip",
+      "bytes": 107886044,
+      "sha256": "a1ccb6d8ad52f917470a136c3752af4465f261bcbe570cf44f52aa69ae6e867e",
+      "hashEvidence": "publisher-release-hash"
+    },
+    {
+      "id": "supermium",
+      "file": "deps/supermium_150_64_nonsetup.zip",
+      "filename": "supermium_150_64_nonsetup.zip",
+      "url": "https://github.com/win32ss/supermium/releases/download/v150-r2/supermium_150_64_nonsetup.zip",
+      "bytes": 188391615,
+      "sha256": "a5609360ebf7d42a64c99c8349109d06afb9c61b06442b6a773c9f2f24af8885",
+      "hashEvidence": "github-asset-digest"
+    },
+    {
+      "id": "ripgrep",
+      "file": "deps/ripgrep-13.0.0-x86_64-pc-windows-msvc.zip",
+      "filename": "ripgrep-13.0.0-x86_64-pc-windows-msvc.zip",
+      "url": "https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep-13.0.0-x86_64-pc-windows-msvc.zip",
+      "bytes": 1734357,
+      "sha256": "a47ace6f654c5ffa236792fc3ee3fefd9c7e88e026928b44da801acb72124aa8",
+      "hashEvidence": "locally-computed-only"
+    },
+    {
+      "id": "zstd",
+      "file": "deps/zstd-v1.5.7-win64.zip",
+      "filename": "zstd-v1.5.7-win64.zip",
+      "url": "https://github.com/facebook/zstd/releases/download/v1.5.7/zstd-v1.5.7-win64.zip",
+      "bytes": 1747181,
+      "sha256": "acb4e8111511749dc7a3ebedca9b04190e37a17afeb73f55d4425dbf0b90fad9",
+      "hashEvidence": "locally-computed-only"
+    },
+    {
+      "id": "sqlite-addon",
+      "version": "11.10.0-node-v115-win32-x64",
+      "file": "sqlite/better-sqlite3-v11.10.0-node-v115-win32-x64.tar.gz",
+      "url": "https://github.com/WiseLibs/better-sqlite3/releases/download/v11.10.0/better-sqlite3-v11.10.0-node-v115-win32-x64.tar.gz",
+      "sha256": "090c06c7e3b003e5cf99cbd280b62d13a5fc9a80f7a5836f1ea3485e3cf85890",
+      "hashEvidence": "locally-computed-only"
+    }
+  ],
+  "baseArchive": {
+    "url": "https://github.com/sqs404/dsh-portable/releases/download/v0.2.0-rc.2/DeepSeek-Harness-Portable-0.2.0-rc.2.zip",
+    "sha256": "d9b6abeadea953a1974f90ce59de61d47ef366a3b8f60a21c6fc256c9aaf1923"
+  },
+  "externalInputsNotBundled": [
+    "Prepared base app, bridge and runtime metadata (build.ps1)",
+    "Licensed CPython 3.12-compatible site-packages (no automatic office package rebuild)",
+    "MinGW-w64 x64 GCC",
+    "Node.js 24 on the Windows 10/11 build host",
+    "7-Zip on the build host"
+  ],
+  "excludedFromPublicSource": [
+    "Runtime archives and executable binaries",
+    "API keys, credentials and user sessions",
+    "OpenAI/desktop office skills and their assets",
+    "Windows update MSU packages and virtual machine media"
+  ]
+}

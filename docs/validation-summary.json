@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "sourcePublication": {
+    "date": "2026-10-21",
+    "edition": "source-only-experimental",
+    "containsCredentials": false,
+    "includesRuntimeBinaries": false,
+    "rebuiltFromPublishedSourceAndRetested": false
+  },
+  "historicalVmValidation": {
+    "date": "2026-10-19",
+    "passed": true,
+    "guest": {
+      "edition": "Microsoft Windows Embedded Standard",
+      "servicePack": 1,
+      "architecture": "x64",
+      "kernel": "6.1.7601",
+      "hotfixes": ["KB2999226", "KB3063858", "KB976902", "KB976932"]
+    },
+    "permissions": {
+      "isAdministrator": false,
+      "tokenScope": "filtered-administrator-token",
+      "independentStandardAccountTested": false
+    },
+    "provider": {
+      "localMock": true,
+      "host": "127.0.0.1",
+      "realCloudModelRequestMade": false
+    },
+    "runtimeProbes": {
+      "node": "20.19.2",
+      "python": "3.12.15",
+      "git": "2.46.2.windows.1",
+      "allStandaloneProbesExitedZero": true,
+      "sqlite": true,
+      "zstandard": true,
+      "typedProgram": true,
+      "pythonOfficeImports": true,
+      "browserExactDom": true
+    },
+    "realToolCallsWithMockProvider": ["write", "load_workspace_dependencies", "pwsh"],
+    "taskSucceeded": true,
+    "services": {
+      "bridgeHealth": true,
+      "pluginManager": true,
+      "configReloadInsertedAndRemoved": true,
+      "cleanupPassed": true
+    },
+    "sandbox": {
+      "backend": "windows-job",
+      "checksPassed": 7,
+      "descendantsObservedAndReaped": 6,
+      "checks": {
+        "powerShell7Command": true,
+        "outsideWorkspaceWriteDenied": true,
+        "timeoutJobQuiesced": true,
+        "cancelJobQuiesced": true,
+        "rootExitJobQuiesced": true,
+        "descendantProcessesReaped": true,
+        "failedSpawnClosed": true
+      },
+      "cleanupPassed": true
+    },
+    "minimumPatchSetProven": false
+  },
+  "historicalHostExtractionCheck": {
+    "date": "2026-10-19",
+    "passed": true,
+    "hostKernel": "10.0.26200",
+    "win7VmValidation": false,
+    "modelRequestsMade": false,
+    "providerSwitching": true,
+    "earlyFailureTerminal": true,
+    "stopped": true
+  },
+  "limitations": [
+    "Historical VM evidence covers the listed WES7 image and component combination only.",
+    "The parameterized public build has not been fully rebuilt and revalidated as the same binary artifact.",
+    "No independent standard account test or real cloud model request was made in the VM.",
+    "Image attachments and persistent interactive terminals are not guaranteed.",
+    "Modern Windows CI is not Win7 VM verification or a complete security audit."
+  ]
+}

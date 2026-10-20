@@ -1,0 +1,13 @@
+{
+  "name": "@dsh-portable/compat",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./util": "./util-compat.mjs",
+    "./sqlite": "./sqlite.mjs",
+    "./module": "./module-compat.mjs",
+    "./zlib": "./zlib-compat.mjs",
+    "./preload": "./preload.cjs"
+  }
+}

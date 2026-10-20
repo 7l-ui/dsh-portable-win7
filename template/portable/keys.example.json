@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "active": "primary",
+  "slots": [
+    { "id": "primary", "label": "主用", "provider": "deepseek-official", "key": "" },
+    { "id": "backup1", "label": "备用一", "provider": "opencode-go", "key": "" },
+    { "id": "backup2", "label": "备用二", "provider": "deepseek-official", "key": "" }
+  ]
+}

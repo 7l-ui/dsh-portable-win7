@@ -1,0 +1,2 @@
+# Preserve bytes of templates used by hash-constrained compatibility transforms.
+* -text

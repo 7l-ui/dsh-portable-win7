@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "defaultModels": {
+    "deepseek-official": { "provider": "deepseek-official", "model": "deepseek-flash" },
+    "opencode-go": { "provider": "opencode-go", "model": "deepseek-v4.1-flash" }
+  },
+  "opencodeGo": {
+    "displayName": "OpenCode Go",
+    "baseURL": "https://opencode.ai/zen/go/v1",
+    "apiKeyEnv": "OPENCODE_GO_API_KEY",
+    "models": [
+      { "id": "deepseek-v4.1-flash", "name": "DeepSeek V4.1 Flash (Go)", "contextWindow": 262144, "maxTokens": 16384 },
+      { "id": "glm-5.3-flash", "name": "GLM 5.3 Flash (Go)", "contextWindow": 262144, "maxTokens": 16384 },
+      { "id": "kimi-k2.7-code", "name": "Kimi K2.7 Code (Go)", "contextWindow": 262144, "maxTokens": 16384 }
+    ]
+  }
+}

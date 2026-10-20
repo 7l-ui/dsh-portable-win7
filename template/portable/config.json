@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "startupTimeoutMs": 90000,
+  "shutdownTimeoutMs": 15000,
+  "defaultModel": { "provider": "deepseek-official", "model": "deepseek-flash" }
+}

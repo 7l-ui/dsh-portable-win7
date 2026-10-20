@@ -1,0 +1,49 @@
+name: Source checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source:
+    # A modern Windows runner; this is not a Win7 VM validation job.
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Check key modules
+        run: npm run check:syntax
+      - name: Test portable templates, bridge and manifest
+        run: npm test
+      - name: Test publication audit
+        run: npm run audit:self-test
+      - name: Audit source before installing external dependencies
+        run: npm run audit
+      - name: Install locked compatibility test dependencies
+        shell: pwsh
+        run: |
+          npm install --global pnpm@9.15.9
+          if ($LASTEXITCODE -ne 0) { throw 'Cannot install fixed pnpm.' }
+          pnpm --dir win7/tools install --frozen-lockfile --ignore-scripts --config.node-linker=hoisted
+          if ($LASTEXITCODE -ne 0) { throw 'Cannot install locked test dependencies.' }
+      - name: Prepare fixed Zstandard test input
+        shell: pwsh
+        run: |
+          $archive = Join-Path $env:RUNNER_TEMP 'zstd-v1.5.7-win64.zip'
+          $destination = Join-Path $env:RUNNER_TEMP 'zstd-compat-tests'
+          Invoke-WebRequest -Uri 'https://github.com/facebook/zstd/releases/download/v1.5.7/zstd-v1.5.7-win64.zip' -OutFile $archive
+          $expected = 'acb4e8111511749dc7a3ebedca9b04190e37a17afeb73f55d4425dbf0b90fad9'
+          if ((Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash.ToLowerInvariant() -ne $expected) { throw 'Zstandard input SHA256 mismatch.' }
+          Expand-Archive -LiteralPath $archive -DestinationPath $destination
+          $zstd = Join-Path $destination 'zstd-v1.5.7-win64/zstd.exe'
+          if (-not (Test-Path -LiteralPath $zstd)) { throw 'Zstandard executable is missing.' }
+          "DSH_WIN7_ZSTD_PATH=$zstd" | Out-File -LiteralPath $env:GITHUB_ENV -Encoding utf8 -Append
+      - name: Test Node compatibility layer
+        run: npm run test:compat

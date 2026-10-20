@@ -1,0 +1,9 @@
+# 运行路径由启动器设置；复制到新目录后无需修改。
+- insert:
+    - id: portable-workspace-dependencies
+      name: '@deepseek-ai/dsh-tool-workspace-dependencies'
+      config:
+        source: !!js "process.getBuiltinModule('node:path').join(process.env.DSH_PORTABLE_ROOT, 'runtime', 'primary-runtime')"
+- id: workspace-controller
+  config:
+    documentsDirectory: !!js "process.env.DSH_PORTABLE_ROOT"

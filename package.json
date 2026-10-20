@@ -1,0 +1,22 @@
+{
+  "name": "dsh-portable-win7",
+  "version": "0.1.0-experimental",
+  "private": true,
+  "description": "Source-only experimental Windows 7 SP1 x64 portability layer and build tooling for DeepSeek Harness",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=24"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/7l-ui/dsh-portable-win7.git"
+  },
+  "scripts": {
+    "test": "node --test template/bridge/core.test.mjs template/portable/bootstrap.test.mjs template/portable/keys.test.mjs template/portable/launcher.test.mjs template/portable/mcp.test.mjs template/portable/providers.test.mjs scripts/manifest.test.mjs",
+    "test:compat": "node win7/test-compat.mjs",
+    "check:syntax": "node --check template/portable/launcher.mjs && node --check template/portable/bootstrap.mjs && node --check template/bridge/server.mjs && node --check scripts/manifest.mjs && node --check win7/build-win7.mjs && node --check win7/prepare-inputs.mjs && node --check win7/apply-win7-jobs.mjs && node --check win7/apply-win7-state-rename.mjs",
+    "audit": "node scripts/audit-public.mjs",
+    "audit:self-test": "node scripts/audit-public.mjs --self-test"
+  }
+}
